@@ -35,6 +35,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      /*routes: {
+        '/': (context) => const HomeScreen(),
+        '/HomeScreen':(context) => const HomeScreen(),
+      },*/
       home: const HomeScreen(),
     );
   }

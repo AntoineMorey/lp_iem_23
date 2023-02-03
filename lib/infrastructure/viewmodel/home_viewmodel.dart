@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:spots_discovery/data/dto/response_dto.dart';
 import 'package:spots_discovery/data/endpoint/spot_endpoint.dart';
 import 'package:spots_discovery/data/model/spot.dart';
+
 
 class HomeViewModel extends ChangeNotifier {
   final SpotEndpoint _spotEndpoint;
@@ -25,8 +27,9 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void loadMore() {
-    /// TODO
+  void loadMore() async {
+    ResponseDto response = await _spotEndpoint.getSpots();
+    spots = response.data;
   }
 
   Spot getRandom() {
