@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:spots_discovery/data/dto/response_dto.dart';
 import 'package:spots_discovery/data/endpoint/spot_endpoint.dart';
 import 'package:spots_discovery/data/model/spot.dart';
-
+import 'package:spots_discovery/ui/details.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final SpotEndpoint _spotEndpoint;
@@ -17,11 +17,11 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<void> _init() async {
     // Opening json file
-    var jsonString = await rootBundle.loadString("assets/json/spots.json");
-    // Decoding json
-    var json = jsonDecode(jsonString);
+    // var jsonString = await rootBundle.loadString("assets/json/spots.json");
+    // // Decoding json
+    // var json = jsonDecode(jsonString);
     // Mapping data
-    spots = List<Map<String, dynamic>>.from(json["data"])
+    spots = ((await _spotEndpoint.getSpots()).data as List<dynamic>)
         .map((json) => Spot.fromJson(json))
         .toList();
     notifyListeners();
@@ -37,11 +37,15 @@ class HomeViewModel extends ChangeNotifier {
     return Spot(id: 0);
   }
 
-  void navigateToDetail(BuildContext context) {
-    /// TODO
+  void navigateToDetail(BuildContext context, int index) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DetailsScreen(index: spots[index].id),
+      ),
+    );
   }
 
   void getSpotByName(String name) {
-    /// TODO
+    for (Spot s in spots){}
   }
 }
