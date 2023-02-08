@@ -8,7 +8,7 @@ import 'package:spots_discovery/infrastructure/viewmodel/home_viewmodel.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-@override
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeViewModel>(
       create: (context) => HomeViewModel(SpotEndpoint(GetIt.I.get<Dio>())),
@@ -16,8 +16,8 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Liste de lieux"),
         ),
-        body: Consumer<HomeViewModel>(builder: (context, viewModel, child) =>
-          SafeArea(
+        body: Consumer<HomeViewModel>(
+          builder: (context, viewModel, child) => SafeArea(
             child: ListView.builder(
               itemCount: viewModel.spots.length,
               itemBuilder: (context, index) {
@@ -26,18 +26,22 @@ class HomeScreen extends StatelessWidget {
                     children: <Widget>[
                       SizedBox(
                         child: ListTile(
-                          
                           leading: Image.network(
                             viewModel.spots[index].imageThumbnail ?? "",
                             height: 100,
                             width: 50,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => const SizedBox(),
-                            ),
+                            errorBuilder: (context, error, stackTrace) =>
+                                const SizedBox(),
+                          ),
                           title: Text(viewModel.spots[index].title ?? ""),
-                          subtitle: Text(viewModel.spots[index].mainCategory?.name ?? ""),
+                          subtitle: Text(
+                              viewModel.spots[index].mainCategory?.name ?? ""
+                              ),
                           trailing: const Icon(Icons.info),
-                          
+                          onTap: () {
+                            viewModel.navigateToDetail(context, index);
+                          }
                         ),
                       ),
                     ],
@@ -52,6 +56,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-

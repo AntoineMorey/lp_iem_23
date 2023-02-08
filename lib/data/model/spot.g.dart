@@ -33,6 +33,9 @@ Spot _$SpotFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => (v as List<dynamic>?)
                   ?.map((e) => SpotCategory.fromJson(e as Map<String, dynamic>))
                   .toList()),
+          description: $checkedConvert('description', (v) => v as String?),
+          imagesCollection: $checkedConvert('images_collection',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
         );
         return val;
       },
@@ -43,7 +46,8 @@ Spot _$SpotFromJson(Map<String, dynamic> json) => $checkedCreate(
         'isRecommended': 'is_recommended',
         'isClosed': 'is_closed',
         'mainCategory': 'main_category',
-        'tagsCategory': 'tags_category'
+        'tagsCategory': 'tags_category',
+        'imagesCollection': 'images_collection'
       },
     );
 
@@ -60,4 +64,6 @@ Map<String, dynamic> _$SpotToJson(Spot instance) => <String, dynamic>{
       'is_closed': instance.isClosed,
       'main_category': instance.mainCategory?.toJson(),
       'tags_category': instance.tagsCategory?.map((e) => e.toJson()).toList(),
+      'description': instance.description,
+      'images_collection': instance.imagesCollection,
     };

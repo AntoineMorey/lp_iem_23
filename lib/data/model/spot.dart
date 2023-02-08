@@ -18,6 +18,8 @@ class Spot {
   bool? isClosed;
   SpotCategory? mainCategory;
   List<SpotCategory>? tagsCategory;
+  String? description;
+  List<String>? imagesCollection;
 
   Spot({
     required this.id,
@@ -32,6 +34,8 @@ class Spot {
     this.isClosed,
     this.mainCategory,
     this.tagsCategory,
+    this.description,
+    this.imagesCollection
   });
 
   factory Spot.fromJson(Map<String, dynamic> json) => _$SpotFromJson(json);
